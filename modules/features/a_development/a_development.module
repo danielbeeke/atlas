@@ -23,7 +23,8 @@ function a_development_form_features_export_form_alter(&$form, &$form_state) {
     'menu_expanded',
     'menu_masks',
     'update_last_check',
-    'file_temporary_path'
+    'file_temporary_path',
+    'ctools_last_cron'
   );
 
   foreach($states as $state) {
