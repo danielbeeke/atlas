@@ -51,6 +51,7 @@ function a_instance_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_user_slug',
+      1 => 'field_user_map_url',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
