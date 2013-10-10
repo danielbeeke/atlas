@@ -1,0 +1,16 @@
+name = Atlast Instance
+description = An instance is a customer of Atlast. It is also a Drupal user.
+core = 7.x
+package = Atlast
+version = 7.x-1.0-beta1
+project = a_instance
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = safeword
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[field_base][] = field_user_slug
+features[field_instance][] = user-user-field_user_slug
+features[variable][] = field_bundle_settings_user__user
+project path = profiles/atlast/modules/features

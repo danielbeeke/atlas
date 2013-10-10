@@ -88,6 +88,12 @@ projects[color_field][subdir] = "contrib"
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
 
+projects[safeword][type] = "module"
+projects[safeword][subdir] = "contrib"
+
+projects[ds][type] = "module"
+projects[ds][subdir] = "contrib"
+
 projects[leaflet_geojson_widget][type] = module
 projects[leaflet_geojson_widget][download][type] = git
 projects[leaflet_geojson_widget][download][branch] = "master"
