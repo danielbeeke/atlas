@@ -1,0 +1,14 @@
+name = atlast
+description = Install site for atlast
+core = 7.x
+
+dependencies[] = block
+dependencies[] = dblog
+
+dependencies[] = kw_manifests
+dependencies[] = features
+
+env_dependencies[development][] = field_ui
+env_dependencies[development][] = strongarm
+
+files[] = atlast.profile
