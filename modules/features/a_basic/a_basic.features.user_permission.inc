@@ -97,6 +97,13 @@ function a_basic_user_default_permissions() {
     'module' => 'features',
   );
 
+  // Exported permission: 'administer fieldgroups'.
+  $permissions['administer fieldgroups'] = array(
+    'name' => 'administer fieldgroups',
+    'roles' => array(),
+    'module' => 'field_group',
+  );
+
   // Exported permission: 'administer filters'.
   $permissions['administer filters'] = array(
     'name' => 'administer filters',
@@ -109,6 +116,13 @@ function a_basic_user_default_permissions() {
     'name' => 'administer image styles',
     'roles' => array(),
     'module' => 'image',
+  );
+
+  // Exported permission: 'administer menu'.
+  $permissions['administer menu'] = array(
+    'name' => 'administer menu',
+    'roles' => array(),
+    'module' => 'menu',
   );
 
   // Exported permission: 'administer modules'.

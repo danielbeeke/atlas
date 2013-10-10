@@ -37,7 +37,7 @@ function a_instance_field_default_field_instances() {
       'module' => 'safeword',
       'settings' => array(),
       'type' => 'safeword_machine_name_only',
-      'weight' => 7,
+      'weight' => 4,
     ),
   );
 

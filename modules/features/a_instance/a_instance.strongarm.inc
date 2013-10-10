@@ -19,10 +19,13 @@ function a_instance_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'account' => array(
-          'weight' => '-10',
+          'weight' => '1',
         ),
         'timezone' => array(
-          'weight' => '6',
+          'weight' => '3',
+        ),
+        'wysiwyg' => array(
+          'weight' => '2',
         ),
       ),
       'display' => array(),

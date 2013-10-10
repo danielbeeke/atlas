@@ -10,3 +10,4 @@ function atlast_install() {
   $default_theme = 'radix';
   variable_set('theme_default', $default_theme);
 }
+
