@@ -3,3 +3,33 @@
  * @file
  * Drupal needs this blank file.
  */
+/**
+ * Implements hook_form_alter().
+ */
+function a_development_form_features_export_form_alter(&$form, &$form_state) {
+  $states = array(
+    'context_block_rebuild_needed',
+    'cron_key',
+    'cron_last',
+    'css_js_query_string',
+    'drupal_private_key',
+    'empty_timezone_message',
+    'features_codecache',
+    'features_ignored_orphans',
+    'features_semaphore',
+    'install_profile',
+    'install_task',
+    'install_time',
+    'menu_expanded',
+    'menu_masks',
+    'update_last_check',
+    'file_temporary_path'
+  );
+
+  foreach($states as $state) {
+    unset($form['export']['variable']['sources']['selected']['#options'][$state]);
+  }
+
+  $new_count = count($form['export']['variable']['sources']['selected']['#options']);
+  $form['export']['variable']['sources']['#title'] = 'Strongarm (<span class="component-count">' . $new_count . '</span>) <span>(variable)</span>';
+}
