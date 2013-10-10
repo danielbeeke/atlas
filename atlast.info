@@ -6,9 +6,7 @@ dependencies[] = block
 dependencies[] = dblog
 
 dependencies[] = kw_manifests
-dependencies[] = features
 
-env_dependencies[development][] = field_ui
-env_dependencies[development][] = strongarm
+env_dependencies[development][] = a_development
 
 files[] = atlast.profile

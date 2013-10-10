@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Atlast Basic feature.
+ */
+
+include_once 'a_basic.features.inc';
