@@ -4,4 +4,25 @@
  * Code for the Atlast Page feature.
  */
 
+/**
+ * Implements hook_atlast_api_menu_items().
+ */
 include_once 'a_page.features.inc';
+
+function a_page_atlast_api_menu_items($instance) {
+  $pages = node_load_multiple(NULL, array(
+    'uid' => $instance->uid,
+    'type' => 'a_page'
+  ));
+
+  $menu_items = array();
+
+  foreach ($pages as $nid => $page) {
+    $menu_items[] = array(
+      'title' => $page->title,
+      'id' => $page->nid
+    );
+  }
+
+  return $menu_items;
+}

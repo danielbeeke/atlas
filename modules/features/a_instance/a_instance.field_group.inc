@@ -50,8 +50,9 @@ function a_instance_field_group_info() {
     'label' => 'App settings',
     'weight' => '1',
     'children' => array(
-      0 => 'field_user_slug',
-      1 => 'field_user_map_url',
+      0 => 'field_user_map_url',
+      1 => 'field_user_slug',
+      2 => 'field_user_map_bounds',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

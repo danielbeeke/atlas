@@ -75,7 +75,9 @@ function a_api_main($instance, $timestamp = NULL) {
  * Implements hook_atlast_api().
  */
 function a_api_atlast_api($instance, $timestamp) {
-    return array(
-      'menu' => $menu
-    );
+  $menu_items = module_invoke_all('atlast_api_menu_items', $instance);
+
+  return array(
+    'menu' => $menu_items
+  );
 }

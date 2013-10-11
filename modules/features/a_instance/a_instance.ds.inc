@@ -26,6 +26,7 @@ function a_instance_ds_layout_settings_info() {
         3 => 'wysiwyg',
         5 => 'field_user_slug',
         6 => 'field_user_map_url',
+        7 => 'field_user_map_bounds',
       ),
       'hidden' => array(
         4 => 'timezone',
@@ -39,11 +40,11 @@ function a_instance_ds_layout_settings_info() {
       'timezone' => 'hidden',
       'field_user_slug' => 'ds_content',
       'field_user_map_url' => 'ds_content',
+      'field_user_map_bounds' => 'ds_content',
     ),
     'classes' => array(),
     'wrappers' => array(
       'ds_content' => 'div',
-      'ds_hidden' => 'div',
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
