@@ -66,6 +66,12 @@ function a_location_get_locations($instance, $reset = NULL) {
           'geojson' => json_decode($location->field_a_location_location[LANGUAGE_NONE][0]['value'], TRUE),
           'content' => $location->field_a_location_body[LANGUAGE_NONE][0]['safe_value']
         );
+
+        $plugins = module_invoke_all('atlast_location_content_plugin', $location);
+
+        foreach ($plugins as $key => $plugin) {
+          $locations[$location->nid]['plugins'][$key] = $plugin;
+        }
       }
       cache_set('atlast_api_locations_' . $instance->uid, $locations, 'cache');
     }

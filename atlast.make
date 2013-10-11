@@ -112,6 +112,12 @@ projects[autocomplete_widgets][subdir] = "contrib"
 projects[color_field][type] = "module"
 projects[color_field][subdir] = "contrib"
 
+projects[multiupload_imagefield_widget][type] = "module"
+projects[multiupload_imagefield_widget][subdir] = "contrib"
+
+projects[multiupload_filefield_widget][type] = "module"
+projects[multiupload_filefield_widget][subdir] = "contrib"
+
 projects[leaflet_geojson_widget][type] = module
 projects[leaflet_geojson_widget][download][type] = git
 projects[leaflet_geojson_widget][download][branch] = "master"

@@ -1,0 +1,28 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+function a_location_photos_atlast_location_content_plugin($location) {
+  if (isset($location->field_a_location_photos[LANGUAGE_NONE]) && count($location->field_a_location_photos[LANGUAGE_NONE])) {
+    $return = array();
+    foreach ($location->field_a_location_photos[LANGUAGE_NONE] as $photo) {
+      $return['photos'][$photo['fid']]['small'] = image_style_url('a_location_photo_small', $photo['uri']);
+      $return['photos'][$photo['fid']]['large'] = image_style_url('a_location_photo_large', $photo['uri']);
+    }
+
+    return $return;
+  }
+}
+
+/**
+ * Implements hook_atlast_api_js().
+ */
+function a_location_photos_atlast_api_js($instance) {
+  return array(
+    array(
+      'file' => drupal_get_path('module', 'a_location_photos') . '/js/a_location_photos.app.js',
+    )
+  );
+}

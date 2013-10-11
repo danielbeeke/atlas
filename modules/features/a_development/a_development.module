@@ -26,7 +26,9 @@ function a_development_form_features_export_form_alter(&$form, &$form_state) {
     'menu_masks',
     'update_last_check',
     'file_temporary_path',
-    'ctools_last_cron'
+    'ctools_last_cron',
+    'file_private_path',
+    'file_public_path'
   );
 
   foreach($states as $state) {

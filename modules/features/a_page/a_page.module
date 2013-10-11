@@ -39,9 +39,6 @@ function a_page_atlast_api_js($instance) {
   return array(
     array(
       'file' => drupal_get_path('module', 'a_page') . '/js/a_page.app.js',
-      'deps' => array(
-        'bootstrapPlate',
-      )
     )
   );
 }

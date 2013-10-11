@@ -95,6 +95,7 @@ features[variable][] = date_first_day
 features[variable][] = default_nodes_main
 features[variable][] = email__active_tab
 features[variable][] = entityreference:base-tables
+features[variable][] = file_default_scheme
 features[variable][] = filter_fallback_format
 features[variable][] = jquery_update_compression_type
 features[variable][] = jquery_update_jquery_cdn

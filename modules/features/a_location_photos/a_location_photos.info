@@ -1,0 +1,11 @@
+name = Atlast Location Photos
+description = Photos for locations.
+core = 7.x
+package = Atlast
+version = 7.x-1.0-beta1
+project = a_location_photos
+dependencies[] = features
+dependencies[] = image
+features[features_api][] = api:2
+features[field_base][] = field_a_location_photos
+project path = profiles/atlast/modules/features

@@ -108,6 +108,13 @@ function a_basic_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'file_default_scheme';
+  $strongarm->value = 'public';
+  $export['file_default_scheme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'filter_fallback_format';
   $strongarm->value = 'plain_text';
   $export['filter_fallback_format'] = $strongarm;
@@ -130,7 +137,7 @@ function a_basic_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'jquery_update_jquery_version';
-  $strongarm->value = '1.7';
+  $strongarm->value = '1.8';
   $export['jquery_update_jquery_version'] = $strongarm;
 
   $strongarm = new stdClass();
