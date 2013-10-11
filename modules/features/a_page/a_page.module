@@ -4,27 +4,46 @@
  * Code for the Atlast Page feature.
  */
 
+include_once 'a_page.features.inc';
+
 /**
  * Implements hook_atlast_api_menu_items().
  */
-include_once 'a_page.features.inc';
-
 function a_page_atlast_api_menu_items($instance) {
-  $pages = node_load_multiple(NULL, array(
+  $pages_nodes = node_load_multiple(NULL, array(
     'uid' => $instance->uid,
     'type' => 'a_page'
   ));
 
-  $menu_items = array();
+  $pages = array();
 
-  foreach ($pages as $nid => $page) {
-    $menu_items[] = array(
+  foreach ($pages_nodes as $nid => $page) {
+    $pages[] = array(
       'title' => $page->title,
-      'id' => $page->nid
+      'attributes' => array(
+        'id' => 'page-' . $page->nid,
+        'data-id' => $page->nid,
+        'href' => '#',
+        'class' => 'page'
+      )
     );
   }
 
-  return $menu_items;
+  return $pages;
+}
+
+/**
+ * Implements hook_atlast_api_js().
+ */
+function a_page_atlast_api_js($instance) {
+  return array(
+    array(
+      'file' => drupal_get_path('module', 'a_page') . '/js/a_page.app.js',
+      'deps' => array(
+        'bootstrapPlate',
+      )
+    )
+  );
 }
 
 /**
@@ -35,4 +54,56 @@ function a_page_node_access_records($node) {
 
   // Rebuild the menu.
   a_api_atlast_api_get_menu($instance, TRUE);
+}
+
+/**
+ * Implements hook_atlast_api().
+ */
+function a_page_atlast_api($instance, $timestamp = NULL) {
+  $api = array();
+
+  if ($timestamp) {
+    $timestamp = 0;
+  }
+
+  // Pages
+  if (a_api_atlast_api_check_is_needed($instance, 'pages', $timestamp)) {
+    $api['pages'] = a_page_get_pages($instance, TRUE);
+  }
+
+  return $api;
+}
+
+/**
+ * Returns the menu, gets cached.
+ */
+function a_page_get_pages($instance, $reset = NULL) {
+  $pages = &drupal_static(__FUNCTION__);
+  if (!isset($pages)) {
+    if ($cache = cache_get('atlast_api_pages_' . $instance->uid)) {
+      $pages = $cache->data;
+    }
+    else {
+      $pages_nodes = node_load_multiple(NULL, array(
+        'uid' => $instance->uid,
+        'type' => 'a_page'
+      ));
+
+      $pages = array();
+
+      foreach ($pages_nodes as $nid => $page) {
+        $pages[$page->nid] = array(
+          'title' => $page->title,
+          'attributes' => array(
+            'id' => $page->nid,
+            'class' => array('page')
+          ),
+          'content' => $page->field_a_page_body[LANGUAGE_NONE][0]['safe_value']
+        );
+      }
+      cache_set('atlast_api_pages_' . $instance->uid, $pages, 'cache');
+    }
+  }
+
+  return $pages;
 }

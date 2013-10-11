@@ -70,16 +70,27 @@ function a_api_main($instance, $timestamp = NULL) {
   return $api;
 }
 
-
 /**
  * Implements hook_atlast_api().
  */
-function a_api_atlast_api($instance, $timestamp) {
-  if (a_api_atlast_api_check_menu_is_needed($instance, $timestamp)) {
-    return array(
-      'menu' => a_api_atlast_api_get_menu($instance)
-    );
+function a_api_atlast_api($instance, $timestamp = NULL) {
+  $api = array();
+
+  if ($timestamp) {
+    $timestamp = 0;
   }
+
+  // Menu
+  if (a_api_atlast_api_check_is_needed($instance, 'menu', $timestamp)) {
+    $api['menu'] = a_api_atlast_api_get_menu($instance, TRUE);
+  }
+
+  // Js
+  if (a_api_atlast_api_check_is_needed($instance, 'js', $timestamp)) {
+    $api['js'] = a_api_atlast_api_get_js($instance, TRUE);
+  }
+
+  return $api;
 }
 
 /**
@@ -87,8 +98,8 @@ function a_api_atlast_api($instance, $timestamp) {
  */
 function a_api_atlast_api_get_menu($instance, $reset = NULL) {
   $menu_items = &drupal_static(__FUNCTION__);
-  if (!isset($menu_items)) {
-    if ($cache = cache_get('atlast_api_menu_' . $instance->uid)) {
+  if (!isset($menu_items) || $reset) {
+    if ($cache = cache_get('atlast_api_menu_' . $instance->uid) && !$reset) {
       $menu_items = $cache->data;
     }
     else {
@@ -102,13 +113,40 @@ function a_api_atlast_api_get_menu($instance, $reset = NULL) {
 }
 
 /**
+ * Returns the js, gets cached.
+ */
+function a_api_atlast_api_get_js($instance, $reset = NULL) {
+  $js = &drupal_static(__FUNCTION__);
+  if (!isset($js) || $reset) {
+    if ($cache = cache_get('atlast_api_js_' . $instance->uid) && !$reset) {
+      $js = $cache->data;
+    }
+    else {
+      $js_hooks = module_invoke_all('atlast_api_js', $instance);
+      $js = '';
+
+      include_once(libraries_get_path('jsmin') . '/JSMin.php');
+
+      foreach($js_hooks as $js_entry) {
+        $js_content = file_get_contents($js_entry['file']);
+        $js .= JSMin::minify($js_content);
+      }
+
+      cache_set('atlast_api_js_' . $instance->uid, $js, 'cache');
+    }
+  }
+
+  return $js;
+}
+
+/**
  * Check if the menu needs to be returned to the app.
  */
-function a_api_atlast_api_check_menu_is_needed($instance, $timestamp) {
-  $cache = cache_get('atlast_api_menu_' . $instance->uid);
+function a_api_atlast_api_check_is_needed($instance, $key, $timestamp) {
+  $cache = cache_get('atlast_api_' . $key . '_' . $instance->uid);
 
   // Only return the menu if an older version is in the app.
-  if ($timestamp < $cache->created) {
+  if (!$cache || $timestamp < $cache->created) {
     return TRUE;
   }
 }

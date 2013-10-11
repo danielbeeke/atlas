@@ -118,7 +118,6 @@ projects[leaflet_geojson_formatter][download][branch] = "master"
 projects[leaflet_geojson_formatter][download][url] =  http://git.drupal.org/sandbox/danielbeeke/1979086.git
 projects[leaflet_geojson_formatter][subdir] = "sandbox"
 
-
 ; Themes
 projects[radix][type] = "theme"
 
