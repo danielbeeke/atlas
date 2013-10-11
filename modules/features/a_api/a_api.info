@@ -7,4 +7,5 @@ project = a_api
 dependencies[] = features
 features[features_api][] = api:2
 features[user_permission][] = access atlast api
+features_exclude[dependencies][a_api] = a_api
 project path = profiles/atlast/modules/features

@@ -13,7 +13,10 @@ function a_api_user_default_permissions() {
   // Exported permission: 'access atlast api'.
   $permissions['access atlast api'] = array(
     'name' => 'access atlast api',
-    'roles' => array(),
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'a_api',
   );
 
