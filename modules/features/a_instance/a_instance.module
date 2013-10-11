@@ -13,7 +13,24 @@ function a_instance_form_user_profile_form_alter(&$form, &$form_state) {
   $form['#after_build'][] = 'a_instance_form_user_profile_form_after_build';
 }
 
+/**
+ * Implements after build for user_profile().
+ */
 function a_instance_form_user_profile_form_after_build(&$form, &$form_state) {
   $form['#group_children']['revision_information'] = 'group_user_settings';
   return $form;
+}
+
+/**
+ * Implements hook_atlast_api().
+ */
+function a_instance_atlast_api($instance, $timestamp) {
+  // if ($timestamp < $instance->revision_timestamp) {
+    return array(
+      'instance' => array(
+        'timestamp' => $instance->revision_timestamp,
+        'data' => $instance
+      )
+    );
+  // }
 }
