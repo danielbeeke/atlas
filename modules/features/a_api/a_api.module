@@ -75,9 +75,40 @@ function a_api_main($instance, $timestamp = NULL) {
  * Implements hook_atlast_api().
  */
 function a_api_atlast_api($instance, $timestamp) {
-  $menu_items = module_invoke_all('atlast_api_menu_items', $instance);
+  if (a_api_atlast_api_check_menu_is_needed($instance, $timestamp)) {
+    return array(
+      'menu' => a_api_atlast_api_get_menu($instance)
+    );
+  }
+}
 
-  return array(
-    'menu' => $menu_items
-  );
+/**
+ * Returns the menu, gets cached.
+ */
+function a_api_atlast_api_get_menu($instance, $reset = NULL) {
+  $menu_items = &drupal_static(__FUNCTION__);
+  if (!isset($menu_items)) {
+    if ($cache = cache_get('atlast_api_menu_' . $instance->uid)) {
+      $menu_items = $cache->data;
+    }
+    else {
+      $menu_items = module_invoke_all('atlast_api_menu_items', $instance);
+
+      cache_set('atlast_api_menu_' . $instance->uid, $menu_items, 'cache');
+    }
+  }
+
+  return $menu_items;
+}
+
+/**
+ * Check if the menu needs to be returned to the app.
+ */
+function a_api_atlast_api_check_menu_is_needed($instance, $timestamp) {
+  $cache = cache_get('atlast_api_menu_' . $instance->uid);
+
+  // Only return the menu if an older version is in the app.
+  if ($timestamp < $cache->created) {
+    return TRUE;
+  }
 }

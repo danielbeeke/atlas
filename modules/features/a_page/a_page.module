@@ -26,3 +26,13 @@ function a_page_atlast_api_menu_items($instance) {
 
   return $menu_items;
 }
+
+/**
+ * Implements hook_node_access_records().
+ */
+function a_page_node_access_records($node) {
+  $instance = user_load($node->uid);
+
+  // Rebuild the menu.
+  a_api_atlast_api_get_menu($instance, TRUE);
+}
