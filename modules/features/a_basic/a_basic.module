@@ -7,19 +7,6 @@
 include_once 'a_basic.features.inc';
 
 /**
- * List for the allowed values of a text list field with icons.
- */
-function a_basic_font_awesome_icon_allowed_list() {
-  $icons = a_basic_font_awesome_icon_keys();
-
-  foreach ($icons as $icon) {
-    $icons_themed[$icon] = '<i class="' . $icon . '"></i> ' . $icon;
-  }
-
-  return $icons_themed;
-}
-
-/**
  * Implements hook_menu_alter().
  */
 function a_basic_menu_alter(&$items) {
@@ -37,7 +24,7 @@ function a_basic_autocomplete_widgets_json($entity_type, $bundle_name, $field_na
   $options = _autocomplete_widgets_get_options($instance, $string, $match, NULL, 10);
   foreach ($options as $key => $label) {
     // Add a class wrapper for a few required CSS overrides.
-    $matches[$key] = '<div class="reference-autocomplete">'. $label .'</div>';
+    $matches[$label] = '<div class="reference-autocomplete"><i class="' . $label . '"></i> ' . $label .'</div>';
   }
   drupal_json_output($matches);
 }

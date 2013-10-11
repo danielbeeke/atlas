@@ -54,7 +54,7 @@ function a_location_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(),
-      'allowed_values_function' => 'a_basic_font_awesome_icon_allowed_list',
+      'allowed_values_function' => 'a_basic_font_awesome_icon_keys',
     ),
     'translatable' => 0,
     'type' => 'list_text',
