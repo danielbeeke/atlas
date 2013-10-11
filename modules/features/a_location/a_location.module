@@ -5,3 +5,150 @@
  */
 
 include_once 'a_location.features.inc';
+
+function a_location_leaflet_geojson_widget_map_alter(&$map, &$form) {
+  if (isset($form['uid']['#value'])) {
+    $instance_formatted = a_instance_get_instance_formatted(user_load($form['uid']['#value']));
+
+    $map['settings']['zoom'] = 16;
+
+    $map['settings']['maxBounds'] = array(
+      $instance_formatted['mapBounds']['topLeft'],
+      $instance_formatted['mapBounds']['bottomRight']
+    );
+  }
+}
+
+/**
+ * Implements hook_atlast_api().
+ */
+function a_location_atlast_api($instance, $timestamp = NULL) {
+  $api = array();
+
+  if ($timestamp) {
+    $timestamp = 0;
+  }
+
+  // locations
+  if (a_api_atlast_api_check_is_needed($instance, 'locations', $timestamp)) {
+    $api['locations'] = a_location_get_locations($instance, TRUE);
+  }
+
+  return $api;
+}
+
+/**
+ * Returns the menu, gets cached.
+ */
+function a_location_get_locations($instance, $reset = NULL) {
+  $locations = &drupal_static(__FUNCTION__);
+  if (!isset($locations) || $reset) {
+    if ($cache = cache_get('atlast_api_locations_' . $instance->uid) && !$reset) {
+      $locations = $cache->data;
+    }
+    else {
+      $locations_nodes = node_load_multiple(NULL, array(
+        'uid' => $instance->uid,
+        'type' => 'a_location'
+      ));
+
+      $locations = array();
+
+      foreach ($locations_nodes as $nid => $location) {
+        $locations[$location->nid] = array(
+          'title' => $location->title,
+          'attributes' => array(
+            'id' => $location->nid,
+            'class' => array('location')
+          ),
+          'geojson' => json_decode($location->field_a_location_location[LANGUAGE_NONE][0]['value'], TRUE),
+          'content' => $location->field_a_location_body[LANGUAGE_NONE][0]['safe_value']
+        );
+      }
+      cache_set('atlast_api_locations_' . $instance->uid, $locations, 'cache');
+    }
+  }
+
+  return $locations;
+}
+
+/**
+ * Implements hook_kw_manifests_info().
+ */
+function a_location_kw_manifests_info() {
+  return array('a_location' => array(
+    'callback' => 'a_location_manifest_define_locations',
+  ));
+}
+
+/**
+ * Creates test content via kw_itemnames.
+ */
+function a_location_manifest_define_locations() {
+  $instance_uid = kw_itemnames_item_id('user', 'henk-jansen');
+
+  kw_itemnames_ensure(
+    'node',
+    'location-1',
+    array(
+      'title' => 'Restaurant pietjes',
+    ),
+    array(
+      'type' => 'a_location',
+      'uid' => $instance_uid,
+      'language' => LANGUAGE_NONE,
+      'field_a_location_body' => array(
+        LANGUAGE_NONE => array(
+          array('value' => 'Phasellus in ante eu urna gravida vestibulum. Sed sit amet ullamcorper elit. Sed elit mauris, gravida a tortor tincidunt, tincidunt blandit libero. Vivamus luctus vitae lacus et faucibus! Donec tempor nunc et condimentum adipiscing. Maecenas viverra venenatis ipsum, sed malesuada nisi viverra fusce.',
+            'format' => 'plain_text',
+          )
+        )
+      ),
+      'field_a_location_location' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[6.107196807861327,52.51452331933267]}}]}'
+          )
+        )
+      ),
+      'field_a_location_icon' => array(
+        LANGUAGE_NONE => array(
+          array('value' => 31)
+        )
+      )
+    )
+  );
+
+  kw_itemnames_ensure(
+    'node',
+    'location-2',
+    array(
+      'title' => 'De markt',
+    ),
+    array(
+      'type' => 'a_location',
+      'uid' => $instance_uid,
+      'language' => LANGUAGE_NONE,
+      'field_a_location_body' => array(
+        LANGUAGE_NONE => array(array(
+          'value' => 'Sed quis accumsan est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum porttitor, mauris in faucibus malesuada, ante nunc tristique nisi, eu rutrum metus purus ac erat. Aliquam augue arcu, eleifend in tincidunt et, fermentum sed metus posuere.
+
+            Donec malesuada laoreet tellus. Morbi sit amet velit sapien. Nunc tempus lacus imperdiet magna ultricies; sed condimentum diam rutrum. Donec ullamcorper facilisis lacus, vitae suscipit arcu venenatis congue? Phasellus sed nunc et arcu feugiat facilisis vel at nisi. Pellentesque facilisis massa nunc.',
+          'format' => 'plain_text',
+        ))
+      ),
+      'field_a_location_location' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[6.107196807861327,52.51452331933267]}}]}'
+          )
+        )
+      ),
+      'field_a_location_icon' => array(
+        LANGUAGE_NONE => array(
+          array('value' => 36)
+        )
+      )
+    )
+  );
+}
