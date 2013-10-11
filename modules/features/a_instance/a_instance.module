@@ -29,8 +29,6 @@ function a_instance_atlast_api($instance, $timestamp) {
     // Get bounds.
     $bounds_geojson = json_decode($instance->field_user_map_bounds[LANGUAGE_NONE][0]['value'], TRUE);
 
-    sdpm($bounds_geojson['features'][0]['geometry']['coordinates'][0][1]);
-
     $bounds = array(
       'topLeft' => array(
         $bounds_geojson['features'][0]['geometry']['coordinates'][0][1][1],

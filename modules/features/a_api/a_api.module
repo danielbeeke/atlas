@@ -69,3 +69,13 @@ function a_api_main($instance, $timestamp = NULL) {
 
   return $api;
 }
+
+
+/**
+ * Implements hook_atlast_api().
+ */
+function a_api_atlast_api($instance, $timestamp) {
+    return array(
+      'menu' => $menu
+    );
+}
