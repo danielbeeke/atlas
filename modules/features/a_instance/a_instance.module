@@ -5,3 +5,15 @@
  */
 
 include_once 'a_instance.features.inc';
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_profile().
+ */
+function a_instance_form_user_profile_form_alter(&$form, &$form_state) {
+  $form['#after_build'][] = 'a_instance_form_user_profile_form_after_build';
+}
+
+function a_instance_form_user_profile_form_after_build(&$form, &$form_state) {
+  $form['#group_children']['revision_information'] = 'group_user_settings';
+  return $form;
+}

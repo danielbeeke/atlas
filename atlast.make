@@ -100,6 +100,9 @@ projects[field_group][subdir] = "contrib"
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
 
+projects[user_revision][type] = "module"
+projects[user_revision][subdir] = "contrib"
+
 projects[leaflet_geojson_widget][type] = module
 projects[leaflet_geojson_widget][download][type] = git
 projects[leaflet_geojson_widget][download][branch] = "master"

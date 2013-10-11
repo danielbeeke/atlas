@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Main Atlast API file.
  */
 
 /**
@@ -58,6 +58,7 @@ function a_api_json_callback($page_callback_result) {
 
   // Only render content
   print json_encode($page_callback_result, JSON_PRETTY_PRINT);
+
   // Perform end-of-request tasks.
   drupal_page_footer();
 }
