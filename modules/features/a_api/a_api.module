@@ -1,0 +1,77 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function a_api_menu() {
+  $items['api/%a_api_instance/%'] = array(
+    'page callback' => 'a_api_main',
+    'page arguments' => array(1, 2),
+    'access arguments' => array('access atlast api'),
+    'type' => MENU_CALLBACK,
+    'delivery callback' => 'a_api_json_callback',
+  );
+
+  return $items;
+}
+
+/**
+ * Menu loader, loads the instance argument.
+ */
+function a_api_instance_load($slug) {
+  $uid = db_select('field_data_field_user_slug', 's')
+  ->fields('s', array('entity_id'))
+  ->condition('field_user_slug_machine', $slug,'=')
+  ->execute()
+  ->fetchField();
+
+  if ($uid) {
+    return user_load($uid);
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function a_api_permission() {
+  return array(
+    'access atlast api' =>  array(
+      'title' => t('access Atlast API'),
+      'description' => t('Access to the Atlast API'),
+    ),
+  );
+}
+
+/**
+ * Delivery API callback.
+ */
+function a_api_json_callback($page_callback_result) {
+  drupal_add_http_header('Content-Type', 'application/json');
+  drupal_add_http_header('Access-Control-Allow-Origin', '*');
+  drupal_add_http_header('Access-Control-Max-Age', '86400');
+  drupal_add_http_header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  drupal_add_http_header('Access-Control-Request-Method', 'GET, OPTIONS');
+
+  // Only render content
+  print json_encode($page_callback_result, JSON_PRETTY_PRINT);
+  // Perform end-of-request tasks.
+  drupal_page_footer();
+}
+
+/**
+ * Main API callback.
+ */
+function a_api_main($instance) {
+  // If no instance was found.
+  if (!$instance) {
+    return array('error' => 'invalid slug');
+  }
+
+  sdpm($instance);
+
+  return $instance;
+}
