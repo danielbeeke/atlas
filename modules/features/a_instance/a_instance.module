@@ -25,12 +25,16 @@ function a_instance_form_user_profile_form_after_build(&$form, &$form_state) {
  * Implements hook_atlast_api().
  */
 function a_instance_atlast_api($instance, $timestamp) {
-  // if ($timestamp < $instance->revision_timestamp) {
+  if ($timestamp < $instance->revision_timestamp) {
+    $instance_formatted = array(
+      'mapUrl' => $instance->field_user_map_url[LANGUAGE_NONE][0]['url']
+    );
+
     return array(
       'instance' => array(
         'timestamp' => $instance->revision_timestamp,
-        'data' => $instance
+        'data' => $instance_formatted
       )
     );
-  // }
+  }
 }

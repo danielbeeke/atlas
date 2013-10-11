@@ -133,7 +133,7 @@ libraries[colorbox][destination] = "libraries"
 
 ; Leaflet
 libraries[leaflet][download][type]= "get"
-libraries[leaflet][download][url] = "https://github.com/Leaflet/Leaflet/archive/master.zip"
+libraries[leaflet][download][url] = "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.6.4.zip"
 libraries[leaflet][directory_name] = "leaflet"
 libraries[leaflet][destination] = "libraries"
 
