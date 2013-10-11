@@ -106,6 +106,9 @@ projects[user_revision][subdir] = "contrib"
 projects[jquery_update][type] = "module"
 projects[jquery_update][subdir] = "contrib"
 
+projects[autocomplete_widgets][type] = "module"
+projects[autocomplete_widgets][subdir] = "contrib"
+
 projects[leaflet_geojson_widget][type] = module
 projects[leaflet_geojson_widget][download][type] = git
 projects[leaflet_geojson_widget][download][branch] = "master"

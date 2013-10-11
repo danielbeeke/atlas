@@ -8,5 +8,6 @@ dependencies[] = a_basic
 dependencies[] = a_instance
 dependencies[] = a_api
 dependencies[] = a_development
+dependencies[] = a_page
 
 files[] = atlast.profile

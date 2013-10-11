@@ -79,8 +79,8 @@ function a_page_atlast_api($instance, $timestamp = NULL) {
  */
 function a_page_get_pages($instance, $reset = NULL) {
   $pages = &drupal_static(__FUNCTION__);
-  if (!isset($pages)) {
-    if ($cache = cache_get('atlast_api_pages_' . $instance->uid)) {
+  if (!isset($pages) || $reset) {
+    if ($cache = cache_get('atlast_api_pages_' . $instance->uid) && !$reset) {
       $pages = $cache->data;
     }
     else {
@@ -106,4 +106,90 @@ function a_page_get_pages($instance, $reset = NULL) {
   }
 
   return $pages;
+}
+
+/**
+ * Implements hook_kw_manifests_info().
+ */
+function a_page_kw_manifests_info() {
+  return array('a_page' => array(
+    'callback' => 'a_page_manifest_define_pages',
+  ));
+}
+
+/**
+ * Creates test content via kw_itemnames.
+ */
+function a_page_manifest_define_pages() {
+  kw_itemnames_ensure(
+    'user',
+    'henk-jansen',
+    array(
+      'name' => 'Henk Jansen',
+    ),
+    array(
+      'language' => LANGUAGE_NONE,
+      'roles' => array(
+        '3' => 'instance'
+      ),
+      'field_user_map_url' => array(
+        LANGUAGE_NONE => array(
+          array('url' => 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        )
+      ),
+      'status' => TRUE,
+      'field_user_slug' => array(
+        LANGUAGE_NONE => array(
+          array('machine' => 'henk-jansen')
+        )
+      ),
+      'field_user_map_bounds' => array(
+        LANGUAGE_NONE => array(
+          array('value' => '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[5.950469970703125,52.46103016351592],[5.950469970703125,52.55965567958739],[6.258087158203125,52.55965567958739],[6.258087158203125,52.46103016351592],[5.950469970703125,52.46103016351592]]]}}]}')
+        )
+      )
+    )
+  );
+
+  $instance_uid = kw_itemnames_item_id('user', 'henk-jansen');
+
+  kw_itemnames_ensure(
+    'node',
+    'test-item-1',
+    array(
+      'title' => 'Lorem ipsum',
+    ),
+    array(
+      'type' => 'a_page',
+      'uid' => $instance_uid,
+      'language' => LANGUAGE_NONE,
+      'field_a_page_body' => array(
+        LANGUAGE_NONE => array(array(
+          'value' => 'Phasellus in ante eu urna gravida vestibulum. Sed sit amet ullamcorper elit. Sed elit mauris, gravida a tortor tincidunt, tincidunt blandit libero. Vivamus luctus vitae lacus et faucibus! Donec tempor nunc et condimentum adipiscing. Maecenas viverra venenatis ipsum, sed malesuada nisi viverra fusce.',
+          'format' => 'plain_text',
+        ))
+      )
+    )
+  );
+
+  kw_itemnames_ensure(
+    'node',
+    'test-item-2',
+    array(
+      'title' => 'Sed sit amet ullamcorper elit',
+    ),
+    array(
+      'type' => 'a_page',
+      'uid' => $instance_uid,
+      'language' => LANGUAGE_NONE,
+      'field_a_page_body' => array(
+        LANGUAGE_NONE => array(array(
+          'value' => 'Sed quis accumsan est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum porttitor, mauris in faucibus malesuada, ante nunc tristique nisi, eu rutrum metus purus ac erat. Aliquam augue arcu, eleifend in tincidunt et, fermentum sed metus posuere.
+
+            Donec malesuada laoreet tellus. Morbi sit amet velit sapien. Nunc tempus lacus imperdiet magna ultricies; sed condimentum diam rutrum. Donec ullamcorper facilisis lacus, vitae suscipit arcu venenatis congue? Phasellus sed nunc et arcu feugiat facilisis vel at nisi. Pellentesque facilisis massa nunc.',
+          'format' => 'plain_text',
+        ))
+      )
+    )
+  );
 }
