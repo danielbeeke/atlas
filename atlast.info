@@ -2,9 +2,11 @@ name = atlast
 description = Install site for atlast
 core = 7.x
 
+dependencies[] = kw_manifests
+
 dependencies[] = a_basic
 dependencies[] = a_instance
-
-env_dependencies[development][] = a_development
+dependencies[] = a_api
+dependencies[] = a_development
 
 files[] = atlast.profile

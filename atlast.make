@@ -103,10 +103,13 @@ projects[link][subdir] = "contrib"
 projects[user_revision][type] = "module"
 projects[user_revision][subdir] = "contrib"
 
+projects[jquery_update][type] = "module"
+projects[jquery_update][subdir] = "contrib"
+
 projects[leaflet_geojson_widget][type] = module
 projects[leaflet_geojson_widget][download][type] = git
 projects[leaflet_geojson_widget][download][branch] = "master"
-projects[leaflet_geojson_widget][download][url] =  http://git.drupal.org/sandbox/danielbeeke/1979090.git
+projects[leaflet_geojson_widget][download][url] = "danielbeeke@git.drupal.org:sandbox/danielbeeke/1979090.git"
 projects[leaflet_geojson_widget][subdir] = "sandbox"
 
 projects[leaflet_geojson_formatter][type] = module
@@ -134,8 +137,8 @@ libraries[colorbox][destination] = "libraries"
 ; Leaflet
 libraries[leaflet][download][type]= "get"
 libraries[leaflet][download][url] = "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.6.4.zip"
-libraries[leaflet][directory_name] = "leaflet"
-libraries[leaflet][destination] = "libraries"
+libraries[leaflet][directory_name] = "dist"
+libraries[leaflet][destination] = "libraries/leaflet"
 
 ; Leaflet Draw
 libraries[leaflet_draw][download][type]= "get"

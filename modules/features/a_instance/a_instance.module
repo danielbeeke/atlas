@@ -26,15 +26,30 @@ function a_instance_form_user_profile_form_after_build(&$form, &$form_state) {
  */
 function a_instance_atlast_api($instance, $timestamp) {
   if ($timestamp < $instance->revision_timestamp) {
+    // Get bounds.
+    $bounds_geojson = json_decode($instance->field_user_map_bounds[LANGUAGE_NONE][0]['value'], TRUE);
+
+    sdpm($bounds_geojson['features'][0]['geometry']['coordinates'][0][1]);
+
+    $bounds = array(
+      'topLeft' => array(
+        $bounds_geojson['features'][0]['geometry']['coordinates'][0][1][1],
+        $bounds_geojson['features'][0]['geometry']['coordinates'][0][1][0]
+      ),
+      'bottomRight' => array(
+        $bounds_geojson['features'][0]['geometry']['coordinates'][0][3][1],
+        $bounds_geojson['features'][0]['geometry']['coordinates'][0][3][0]
+      )
+    );
+
+    // Format the settings.
     $instance_formatted = array(
-      'mapUrl' => $instance->field_user_map_url[LANGUAGE_NONE][0]['url']
+      'mapUrl' => $instance->field_user_map_url[LANGUAGE_NONE][0]['url'],
+      'mapBounds' => $bounds,
     );
 
     return array(
-      'instance' => array(
-        'timestamp' => $instance->revision_timestamp,
-        'data' => $instance_formatted
-      )
+      'instance' => $instance_formatted
     );
   }
 }

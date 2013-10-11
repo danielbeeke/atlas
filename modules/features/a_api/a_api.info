@@ -4,7 +4,6 @@ core = 7.x
 package = Atlast
 version = 7.x-1.0-beta1
 project = a_api
-dependencies[] = a_api
 dependencies[] = features
 features[features_api][] = api:2
 features[user_permission][] = access atlast api
