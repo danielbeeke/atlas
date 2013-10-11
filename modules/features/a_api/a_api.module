@@ -51,6 +51,7 @@ function a_api_permission() {
  */
 function a_api_json_callback($page_callback_result) {
   drupal_add_http_header('Content-Type', 'application/json');
+  drupal_add_http_header('Access-Control-Allow-Origin', '*');
 
   // Only render content
   print 'atlastApi(' . json_encode($page_callback_result, JSON_PRETTY_PRINT) . ')';
