@@ -95,6 +95,7 @@ function a_page_get_pages($instance, $reset = NULL) {
             'id' => $page->nid,
             'class' => array('page')
           ),
+          'id' => $page->nid,
           'content' => $page->field_a_page_body[LANGUAGE_NONE][0]['safe_value']
         );
       }

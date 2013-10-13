@@ -61,6 +61,7 @@ function a_location_get_locations($instance, $reset = NULL) {
             'id' => $location->nid,
             'class' => array('location')
           ),
+          'id' => $location->nid,
           'color' => $location->field_a_location_color[LANGUAGE_NONE][0]['rgb'],
           'icon' => $location->field_a_location_icon[LANGUAGE_NONE][0]['value'],
           'geojson' => json_decode($location->field_a_location_location[LANGUAGE_NONE][0]['value'], TRUE),

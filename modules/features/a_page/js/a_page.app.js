@@ -4,19 +4,18 @@
     attach: function (settings) {
 
       $('#menu a.page').once().click(function () {
-        var that = this;
-        $('#menu').modal('hide')
+        var combiner = require('combiner')
 
-        $('#plate').plate('hide').remove()
+        combiner.hideMenu()
 
         var pages = JSON.parse(localStorage.getItem('pages'));
 
-        $('body').append(twigloader.get('plate', {
-          title: pages[$(that).attr('data-id')].title,
-          content: pages[$(that).attr('data-id')].content,
-        }))
+        combiner.showPlate({
+          id: pages[$(this).attr('data-id')].id,
+          title: pages[$(this).attr('data-id')].title,
+          content: pages[$(this).attr('data-id')].content,
+        })
 
-        $('#plate').plate('show')
       });
 
     }
