@@ -3,9 +3,11 @@
   Atlast.behaviors.photos = {
     attach: function (settings) {
 
-      $('body').on('plate_new_content', function (event, location) {
+      var combiner = require('combiner')
 
-        if ($('.swiper-container').length) {
+      $('body').on('plate_new_content', function (event, plate, location) {
+
+        if ($('.swiper-container', plate).length) {
           new Swiper('.swiper-container', {
             speed:750,
             mode:'horizontal',
@@ -16,33 +18,19 @@
           })
         }
 
-        $('.swiper-image').once().click(function () {
-            var that = this;
-
-            $('#photo').remove()
+        $('.swiper-image', plate).once().click(function () {
+            var photo = location.plugins.photos[$(this).attr('data-id')]
 
             var singlePhoto = twigloader.get('photo', {
-              photo: $(that).attr('data-large'),
-              title: $(that).attr('title'),
+              photo: photo.large,
+              title: photo.title,
             })
 
-            if ($(that).attr('title')) {
-              var title = $(that).attr('title')
-            }
-            else {
-              var title = 'No title';
-            }
-
-            var photoModal = twigloader.get('modal', {
-              id: 'photo',
+            combiner.showPlate({
+              id: 'photo-' + photo.id,
               content: singlePhoto,
-              title: title
+              title: photo.title
             })
-
-            $('body').append(photoModal)
-
-            $('#photo').modal('show')
-
         });
 
       })

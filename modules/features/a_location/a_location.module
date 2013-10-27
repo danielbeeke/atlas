@@ -113,16 +113,25 @@ function a_location_manifest_define_locations() {
           )
         )
       ),
-      'field_a_location_location' => array(
+      'field_a_location_color' => array(
         LANGUAGE_NONE => array(
           array(
-            'value' => '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[6.107196807861327,52.51452331933267]}}]}'
+            'rgb' => '#FA573C'
           )
         )
       ),
       'field_a_location_icon' => array(
         LANGUAGE_NONE => array(
-          array('value' => 31)
+          array(
+            'value' => 'icon-question'
+          )
+        )
+      ),
+      'field_a_location_location' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[6.105072498321533,52.51488894986447]}}]}'
+          )
         )
       )
     )
@@ -146,16 +155,25 @@ function a_location_manifest_define_locations() {
           'format' => 'plain_text',
         ))
       ),
-      'field_a_location_location' => array(
+      'field_a_location_color' => array(
         LANGUAGE_NONE => array(
           array(
-            'value' => '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[6.107196807861327,52.51452331933267]}}]}'
+            'rgb' => '#16A765'
           )
         )
       ),
       'field_a_location_icon' => array(
         LANGUAGE_NONE => array(
-          array('value' => 36)
+          array(
+            'value' => 'icon-star'
+          )
+        )
+      ),
+      'field_a_location_location' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[6.107196807861327,52.51452331933267]}}]}'
+          )
         )
       )
     )

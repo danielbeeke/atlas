@@ -4,6 +4,8 @@
  * Main Atlast API file.
  */
 
+define('ATLAST_API_DEBUG', TRUE);
+
 /**
  * Implements hook_menu().
  */
@@ -83,12 +85,12 @@ function a_api_atlast_api($instance, $timestamp = NULL) {
 
   // Menu
   if (a_api_atlast_api_check_is_needed($instance, 'menu', $timestamp)) {
-    $api['menu'] = a_api_atlast_api_get_menu($instance, TRUE);
+    $api['menu'] = a_api_atlast_api_get_menu($instance, ATLAST_API_DEBUG);
   }
 
   // Js
   if (a_api_atlast_api_check_is_needed($instance, 'js', $timestamp)) {
-    $api['js'] = a_api_atlast_api_get_js($instance, TRUE);
+    $api['js'] = a_api_atlast_api_get_js($instance, ATLAST_API_DEBUG);
   }
 
   return $api;

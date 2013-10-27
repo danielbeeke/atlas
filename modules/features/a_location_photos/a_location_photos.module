@@ -11,6 +11,7 @@ function a_location_photos_atlast_location_content_plugin($location) {
       $return['photos'][$photo['fid']]['small'] = image_style_url('a_location_photo_small', $photo['uri']);
       $return['photos'][$photo['fid']]['large'] = image_style_url('a_location_photo_large', $photo['uri']);
       $return['photos'][$photo['fid']]['title'] = $photo['title'];
+      $return['photos'][$photo['fid']]['id'] = $photo['fid'];
 
     }
 
